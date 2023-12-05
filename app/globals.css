@@ -25,3 +25,163 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+
+.taskbar {
+  background: linear-gradient(
+    rgb(31, 47, 134) 0px,
+    rgb(49, 101, 196) 3%,
+    rgb(54, 130, 229) 6%,
+    rgb(68, 144, 230) 10%,
+    rgb(56, 131, 229) 12%,
+    rgb(43, 113, 224) 15%,
+    rgb(38, 99, 218) 18%,
+    rgb(35, 91, 214) 20%,
+    rgb(34, 88, 213) 23%,
+    rgb(33, 87, 214) 38%,
+    rgb(36, 93, 219) 54%,
+    rgb(37, 98, 223) 86%,
+    rgb(36, 95, 220) 89%,
+    rgb(33, 88, 212) 92%,
+    rgb(29, 78, 192) 95%,
+    rgb(25, 65, 165) 98%
+  );
+}
+
+.taskbar-right {
+  background: linear-gradient(
+    rgb(12, 89, 185) 1%,
+    rgb(19, 158, 233) 6%,
+    rgb(24, 181, 242) 10%,
+    rgb(19, 155, 235) 14%,
+    rgb(18, 144, 232) 19%,
+    rgb(13, 141, 234) 63%,
+    rgb(13, 159, 241) 81%,
+    rgb(15, 158, 237) 88%,
+    rgb(17, 155, 233) 91%,
+    rgb(19, 146, 226) 94%,
+    rgb(19, 126, 215) 97%,
+    rgb(9, 91, 201) 100%
+  );
+}
+
+.tab {
+  background-color: rgb(60, 129, 243);
+  box-shadow: rgba(0, 0, 0, 0.3) -1px 0px inset,
+    rgba(255, 255, 255, 0.5) 1px 1px 1px inset;
+}
+
+.tab:hover {
+  background-color: rgb(91, 149, 243);
+  box-shadow: rgba(0, 0, 0, 0.3) -1px 0px inset,
+    rgba(255, 255, 255, 0.5) 1px 1px 1px inset;
+}
+
+.tab:active {
+  background-color: rgb(30, 82, 183);
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 1px 1px inset,
+    rgba(0, 0, 0, 0.7) 1px 0px 1px inset;
+}
+
+.tab-focus {
+  background-color: rgb(30, 82, 183);
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 1px 1px inset,
+    rgba(0, 0, 0, 0.7) 1px 0px 1px inset;
+}
+
+.tab-focus:hover {
+  background-color: rgb(60, 129, 243);
+  box-shadow: rgba(0, 0, 0, 0.3) -1px 0px inset,
+    rgba(255, 255, 255, 0.5) 1px 1px 1px inset;
+}
+
+.tab-focus:active {
+  background-color: rgb(30, 82, 183);
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 1px 1px inset,
+    rgba(0, 0, 0, 0.7) 1px 0px 1px inset;
+}
+
+.menu-text {
+  text-shadow: black 0px 1px 1px;
+}
+
+.right-menu-separator {
+  background: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(135, 179, 226, 0.71) 50%,
+      rgba(0, 0, 0, 0) 100%
+    )
+    content-box;
+}
+
+.results-page-separator {
+  background: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(191, 191, 191, 0.71) 50%,
+      rgba(0, 0, 0, 0) 100%
+    )
+    content-box;
+}
+
+.start-menu {
+  box-shadow: rgba(0, 0, 0, 0.5) 2px 4px 2px;
+  background-color: rgb(66, 130, 214);
+}
+
+.start-menu-header {
+  background: linear-gradient(
+    rgb(24, 104, 206) 0%,
+    rgb(14, 96, 203) 12%,
+    rgb(14, 96, 203) 20%,
+    rgb(17, 100, 207) 32%,
+    rgb(22, 103, 207) 33%,
+    rgb(27, 108, 211) 47%,
+    rgb(30, 112, 217) 54%,
+    rgb(36, 118, 220) 60%,
+    rgb(41, 122, 224) 65%,
+    rgb(52, 130, 227) 77%,
+    rgb(55, 134, 229) 79%,
+    rgb(66, 142, 233) 90%,
+    rgb(71, 145, 235) 100%
+  );
+}
+
+.start-menu-body {
+  border-top: 1px solid rgb(56, 93, 231);
+  box-shadow: rgb(56, 93, 231) 0px 1px;
+}
+
+.start-menu-body-right {
+  background-color: rgb(203, 227, 255);
+  border-left: 1px solid rgba(58, 58, 255, 0.37);
+}
+
+.start-menu-footer {
+  background: linear-gradient(
+    rgb(66, 130, 214) 0%,
+    rgb(59, 133, 224) 3%,
+    rgb(65, 138, 227) 5%,
+    rgb(65, 138, 227) 17%,
+    rgb(60, 135, 226) 21%,
+    rgb(55, 134, 228) 26%,
+    rgb(52, 130, 227) 29%,
+    rgb(46, 126, 225) 39%,
+    rgb(35, 116, 223) 49%,
+    rgb(32, 114, 219) 57%,
+    rgb(25, 110, 219) 62%,
+    rgb(23, 107, 216) 72%,
+    rgb(20, 104, 213) 75%,
+    rgb(17, 101, 210) 83%,
+    rgb(15, 97, 203) 88%
+  );
+}
+
+.hr-orange {
+  background: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0) 0%,
+    rgb(218, 136, 74) 50%,
+    rgba(0, 0, 0, 0) 100%
+  );
+}
