@@ -27,10 +27,12 @@ export default function Search() {
     handleSetClosed,
   } = useWindow();
   const { stack, handleSetStack } = useNavStack();
-  const { address, handleSetAddress } = useAddress();
+  const { address, setAddress } = useAddress();
   const [value, setValue] = React.useState("");
   const [results, setResults] = React.useState<Result[]>([]);
   const [isFetching, setIsFetching] = React.useState(false);
+  const [isFirstFetching, setIsFirstFetching] = React.useState(true);
+  const [isError, setIsError] = React.useState(false);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
@@ -38,12 +40,14 @@ export default function Search() {
 
   const handleSearch = async () => {
     if (value === "") return;
-    handleSetAddress(
-      `http://www.google.com/search?q=${encodeURIComponent(value)}`
+    setIsError(false);
+    setAddress(
+      `http://www.google.com/search?q=${encodeURIComponent(value)}&page=1`
     );
     handleSetStack(2);
     setIsFetching(true);
     const data = await fetchData(value);
+    setIsFirstFetching(false);
     setIsFetching(false);
     setResults(data);
   };
@@ -54,20 +58,22 @@ export default function Search() {
 
   const fetchData = async (query: string): Promise<Result[]> => {
     try {
-      const response = await axios.get(`http://127.0.0.1:5000?q=${query}`);
+      const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}?q=${query}`);
       const data = response.data;
 
       return data;
     } catch (error) {
       console.error("Error fetching data:", error);
+      setIsError(true);
       return [];
     }
   };
 
   React.useEffect(() => {
     if (stack === 1) {
+      setIsFirstFetching(true);
       setValue("");
-      handleSetAddress("");
+      setAddress("");
       setResults([]);
     }
   }, [stack]);
@@ -79,7 +85,9 @@ export default function Search() {
         <div
           className={twMerge(
             "window h-[90vh] mb-6",
-            isMaximized ? "w-full h-[97%]" : "w-5/6 md:w-3/4"
+            isMaximized
+              ? "w-full h-[97%] !translate-y-0 !translate-x-0"
+              : "w-5/6 md:w-3/4"
           )}
         >
           <div className='title-bar handle'>
@@ -160,6 +168,8 @@ export default function Search() {
                   onChange={handleChange}
                   onEnter={handleSearch}
                   isFetching={isFetching}
+                  isError={isError}
+                  isFirstFetching={isFirstFetching}
                 />
               )}
               {stack === 3 && <ResultsDetail />}

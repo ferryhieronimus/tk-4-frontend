@@ -33,9 +33,9 @@ const WebPage: React.FC<WebPageProps> = ({ onChange, onEnter }) => {
   }, []);
 
   return (
-    <div className='h-full flex flex-col justify-center gap-8 items-center'>
+    <div className='h-full flex flex-col justify-center gap-4 items-center'>
       <Image src='/google.png' alt='Icon' width={272} height={184} />
-      <InputGroup className='w-1/2 rounded-3xl'>
+      <InputGroup className='w-1/2 rounded-3xl mb-12'>
         <Input
           placeholder={currentPlaceholder}
           className='rounded-none shadow-md'

@@ -3,21 +3,23 @@ import React, { createContext, useContext, useState } from "react";
 
 interface AddressContextProps {
   address: string;
-  handleSetAddress: (address: string) => void;
+  setAddress: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const AddressContext = createContext<AddressContextProps | undefined>(undefined);
+const AddressContext = createContext<AddressContextProps | undefined>(
+  undefined
+);
 
-export const AddressProvider = ({ children }: { children: React.ReactNode }) => {
+export const AddressProvider = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => {
   const [address, setAddress] = useState("");
-
-  const handleSetAddress = (address: string) => {
-    setAddress(address);
-  };
 
   const contextValue: AddressContextProps = {
     address,
-    handleSetAddress,
+    setAddress,
   };
 
   return (

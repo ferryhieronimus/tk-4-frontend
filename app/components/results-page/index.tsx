@@ -6,12 +6,22 @@ import ResultsRow from "../results-row";
 import { useNavStack } from "@/app/providers/navstack-providers";
 import { Result } from "../search";
 import { Progress } from "@chakra-ui/react";
+import { Cormorant_SC } from "next/font/google";
+import { twMerge } from "tailwind-merge";
+import { useAddress } from "@/app/providers/address-providers";
+
+const csc = Cormorant_SC({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+});
 
 interface ResultsPageProps {
   results: Result[];
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
   onEnter: () => void;
   isFetching: boolean;
+  isError: boolean;
+  isFirstFetching: boolean;
 }
 
 const ResultsPage: React.FC<ResultsPageProps> = ({
@@ -19,8 +29,27 @@ const ResultsPage: React.FC<ResultsPageProps> = ({
   onChange,
   onEnter,
   isFetching,
+  isError,
+  isFirstFetching,
 }) => {
   const { handleSetStack } = useNavStack();
+  const { address, setAddress } = useAddress();
+  const [currentPage, setCurrentPage] = React.useState(1);
+  const startIndex = (currentPage - 1) * 8;
+  const endIndex = startIndex + 8;
+  const visibleResults = results.slice(startIndex, endIndex);
+
+  const containerRef = React.useRef<HTMLDivElement>(null);
+
+  const handlePageChange = (page: number) => {
+    if (containerRef.current) {
+      containerRef.current.scrollIntoView();
+      if (page != 1) {
+        setAddress(address.replace(`&page=${currentPage}`, `&page=${page}`));
+      }
+      setCurrentPage(page);
+    }
+  };
 
   const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter") {
@@ -28,9 +57,20 @@ const ResultsPage: React.FC<ResultsPageProps> = ({
     }
   };
 
+  React.useEffect(() => {
+    setCurrentPage(1);
+  }, [results]);
+
   return (
-    <div className='relative h-full flex flex-col gap-4 p-8'>
+    <div className='relative h-full flex flex-col gap-4 p-8' ref={containerRef}>
       {isFetching && (
+        <Progress
+          size='xs'
+          isIndeterminate
+          className='absolute top-0 left-0 w-full'
+        />
+      )}
+      {isError && (
         <Progress
           size='xs'
           isIndeterminate
@@ -52,7 +92,7 @@ const ResultsPage: React.FC<ResultsPageProps> = ({
             onChange={onChange}
             onKeyDown={handleKeyDown}
           />
-          <InputRightElement>
+          <InputRightElement onClick={onEnter} className='cursor-pointer'>
             <svg
               xmlns='http://www.w3.org/2000/svg'
               fill='none'
@@ -73,9 +113,53 @@ const ResultsPage: React.FC<ResultsPageProps> = ({
       </div>
       <hr className='h-[2px] results-page-separator' />
       <div className='flex flex-col gap-8 h-full w-3/4 ml-16 mt-4'>
-        {results.map((result, index) => (
+        {!isFirstFetching && !isError ? (
+          results.length === 0 ? (
+            <div className='h-4 -my-4'>No result</div>
+          ) : (
+            <div className='h-4 -my-4'>{`${results.length} Document(s) Found`}</div>
+          )
+        ) : null}
+        {visibleResults.map((result, index) => (
           <ResultsRow key={index} result={result} />
         ))}
+        <div>
+          <div>
+            {!isFirstFetching && results.length !== 0 && (
+              <div className={`${csc.className} mx-auto select-none mt-8`}>
+                <h1 className='flex justify-center text-7xl'>
+                  <span className='text-[#0145C9]'>G</span>
+                  <span className='text-[#CB0F08]'>o</span>
+                  <span className='text-[#EEC238]'>ooooo</span>
+                  <span className='text-[#0145C9]'>g</span>
+                  <span className='text-[#2F9A30]'>o</span>
+                  <span className='text-[#CB0F08]'>l</span>
+                </h1>
+              </div>
+            )}
+            <div className='flex mt-2 w-full justify-center'>
+              {Array.from({ length: Math.ceil(results.length / 8) }).map(
+                (_, index) => (
+                  <p
+                    className={twMerge(
+                      "text-base w-8 text-center cursor-pointer",
+                      currentPage === index + 1
+                        ? "text-[rgb(22,96,232)]"
+                        : "text-gray-700 hover:text-[rgb(22,96,232)] hover:underline"
+                    )}
+                    key={index}
+                    onClick={() => {
+                      handlePageChange(index + 1);
+                      window.scrollTo({ top: 0, behavior: "smooth" });
+                    }}
+                  >
+                    {index + 1}
+                  </p>
+                )
+              )}
+            </div>
+          </div>
+        </div>
         <div className='h-8 invisible'>End of result</div>
       </div>
     </div>

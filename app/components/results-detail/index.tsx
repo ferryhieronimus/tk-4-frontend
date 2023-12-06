@@ -7,9 +7,9 @@ import { useAddress } from "@/app/providers/address-providers";
 
 const ResultsDetail: React.FC = () => {
   const { result } = useResult();
-  const { handleSetAddress } = useAddress();
+  const { setAddress } = useAddress();
 
-  handleSetAddress(`http://www.google.com/${encodeURIComponent(result.title)}`)
+  setAddress(`http://www.google.com/${encodeURIComponent(result.title)}`)
 
   return (
     <div className='w-full max-w-screen-xl flex flex-col gap-2 p-16'>

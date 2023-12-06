@@ -7,13 +7,14 @@ import { Providers } from "./providers/chakra-providers";
 import { NavStackProvider } from "./providers/navstack-providers";
 import { ResultProvider } from "./providers/result-providers";
 import { AddressProvider } from "./providers/address-providers";
-const inter = Noto_Sans_TC({
+
+const nstc = Noto_Sans_TC({
   subsets: ["latin"],
   weight: ["100", "200", "300", "400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
-  title: "Search Engine",
+  title: "Googol",
   description: "Tugas TK4 Perolehan Informasi Fasilkom UI",
 };
 
@@ -24,7 +25,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang='en'>
-      <body className={inter.className}>
+      <body className={nstc.className}>
         <Providers>
           <NavStackProvider>
             <ResultProvider>

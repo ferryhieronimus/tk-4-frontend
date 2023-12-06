@@ -1,4 +1,7 @@
 export const placeholders = [
+  "What is Googol?",
+  "Is Java the best programming language?",
+  "How to make a good cup of coffee?",
   "Best places to visit in 2023",
   "Optimizing inverted index structures",
   "Is UI better than ITB?",
